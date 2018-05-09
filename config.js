@@ -1,0 +1,5 @@
+module.exports = {
+  FB_PAGE_TOKEN: 'EAACm6tf2U7QBAO1t10NXoXpxaXyPZBdD4NFnlCGVIuXZCAe86Du8gBGAUf6ZCY38HfGvoJAzJfaXFQ9VNkQpvF4Se90v2CP3OxEUaQXEZCiuZB6ZB4LELm3bBqDIymi7MsRv3hz40hCblulZBcX6NitZAvS8QiCxS6RarfeZBLc774cHSlG9HqkZAb',
+  FB_VERIFY_TOKEN: 'razzil1',
+  DATABASE: "mongodb://razzil1:razzil1@ds119080.mlab.com:19080/aqua-bot"
+};

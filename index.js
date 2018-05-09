@@ -6,6 +6,7 @@ const request = require('request');
 const app = express();
 const uuid = require('uuid');
 var schedule = require('node-schedule');
+const config = require('./config');
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -22,7 +23,7 @@ app.get('/', function (req, res) {
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === 'razzil1') {
+    if (req.query['hub.verify_token'] === config.FB_VERIFY_TOKEN) {
         res.send(req.query['hub.challenge'])
     }
     res.send('Error, wrong token')
@@ -61,8 +62,7 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
-var token = "EAACm6tf2U7QBAO1t10NXoXpxaXyPZBdD4NFnlCGVIuXZCAe86Du8gBGAUf6ZCY38HfGvoJAzJfaXFQ9VNkQpvF4Se90v2CP3OxEUaQXEZCiuZB6ZB4LELm3bBqDIymi7MsRv3hz40hCblulZBcX6NitZAvS8QiCxS6RarfeZBLc774cHSlG9HqkZAb"
-
+var token = config.FB_PAGE_TOKEN;
 // function to echo back messages - added by Stefan
 
 function sendTextMessage(sender, text) {
