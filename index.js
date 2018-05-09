@@ -7,6 +7,7 @@ const app = express();
 const uuid = require('uuid');
 var schedule = require('node-schedule');
 const config = require('./config');
+const mongoose = require('mongoose');
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -20,6 +21,11 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
 })
+
+mongoose.connect(config.DATABASE);
+mongoose.connection.on('error', (err) => {
+  console.error(`Coudn't connect to mongo: ${err.message}`);
+});
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
