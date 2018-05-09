@@ -1,0 +1,11 @@
+curl -X POST -H "Content-Type: application/json" -d '{
+  "greeting":[
+  {
+    "locale":"default",
+    "text":"Hi, AquaBot at your service!"
+  }, {
+    "locale":"en_US",
+    "text":"Hi, AquaBot at your service!"
+  }
+]
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAACm6tf2U7QBAO1t10NXoXpxaXyPZBdD4NFnlCGVIuXZCAe86Du8gBGAUf6ZCY38HfGvoJAzJfaXFQ9VNkQpvF4Se90v2CP3OxEUaQXEZCiuZB6ZB4LELm3bBqDIymi7MsRv3hz40hCblulZBcX6NitZAvS8QiCxS6RarfeZBLc774cHSlG9HqkZAb"
