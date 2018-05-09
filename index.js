@@ -54,7 +54,7 @@ app.post('/webhook/', function (req, res) {
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
             continue
         }
-        var j = schedule.scheduleJob("*/1 * * * *", function() {
+        var j = schedule.scheduleJob("*/30 * * * *", function() {
           sendTextMessage(sender, "Nadam se da radi :)");
         });
     }
