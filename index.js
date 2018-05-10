@@ -40,7 +40,7 @@ app.post('/webhook/', function (req, res) {
       sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
       setTimeout(function() {
         console.log("timeout");
-      },2000;)
+      },2000);
       sendTextMessage(sender, "How are you?");
     }
     if (event.postback) {
