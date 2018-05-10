@@ -148,7 +148,7 @@ let nesto = (sender, text) => {
 };
 
 let ubaciUBazu = async (sender) => {
-  const user = await User.findOne({ name: sender });
+  let user = await User.findOne({ name: sender });
   if (!user) {
     user = new User({name: sender, date: Date.now()});
     console.log("Before save: User was not found, but has added");
