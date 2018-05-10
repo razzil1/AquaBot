@@ -148,8 +148,16 @@ let nesto = (sender, text) => {
 };
 
 let ubaciUBazu = async (sender) => {
-  const user = new User({name: sender, date: Date.now()});
-  await user.save();
+  const user = await User.findOne({ name: sender });
+  if (!user) {
+    user = new User({name: sender, date: Date.now()});
+    await user.save();
+    console.log("User was not found, but has added");
+
+  } else {
+    console.log("User was find");
+  }
+
 };
 
 schedule.scheduleJob("*/30 * * * *", function() {
