@@ -127,7 +127,9 @@ function sendGenericMessage(sender) {
   })
 }
 
-let nesto = async (sender, text) => {
-  await sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
-  await sendTextMessage(sender, "How are you?");
+let nesto = (sender, text) => {
+  sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
+  setTimeout(function() {
+    sendTextMessage(sender, "How are you?");
+  }, 1000);
 };
