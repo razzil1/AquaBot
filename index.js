@@ -38,7 +38,7 @@ app.post('/webhook/', function (req, res) {
         continue;
       }
       if (text === 'Hi') {
-        nesto(sender);
+        nesto(sender, text);
         continue;
       }
       sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
@@ -127,7 +127,7 @@ function sendGenericMessage(sender) {
   })
 }
 
-let nesto = async (sender) => {
+let nesto = async (sender, text) => {
   await sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
   await sendTextMessage(sender, "How are you?");
 };
