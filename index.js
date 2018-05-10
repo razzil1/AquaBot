@@ -37,8 +37,11 @@ app.post('/webhook/', function (req, res) {
         sendGenericMessage(sender)
         continue
       }
-      await sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-      await sendTextMessage(sender, "How are you?");
+      sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+      setTimeout(function() {
+        console.log("timeout");
+      },2000;)
+      sendTextMessage(sender, "How are you?");
     }
     if (event.postback) {
       let text = JSON.stringify(event.postback)
