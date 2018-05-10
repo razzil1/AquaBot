@@ -91,7 +91,7 @@ function sendTextMessage(sender, text) {
   })
 }
 function sendTypingOn(sender) {
-  let messageData = { sender_action: "typing_on" }
+  let messageData = { sender_action:"typing_on" }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
@@ -159,7 +159,7 @@ function sendGenericMessage(sender) {
 }
 
 let nesto = (sender, text) => {
-  sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
+  // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
   sendTypingOn(sender);
   setTimeout(function() {
     sendTextMessage(sender, "How are you?");
