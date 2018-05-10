@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 const config = require('./config');
+const schedule = require('node-schedule');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -46,6 +47,9 @@ app.post('/webhook/', function (req, res) {
       sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
       continue
     }
+    schedule.scheduleJob("*/5 * * * *", function() {
+      sendTextMessage(sender, "Send me something");
+    });
   }
   res.sendStatus(200)
 })
