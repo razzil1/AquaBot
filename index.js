@@ -56,9 +56,6 @@ app.post('/webhook/', function (req, res) {
       continue
     }
   }
-  schedule.scheduleJob("*/1 * * * *", function() {
-    sendTextMessage('2047875771907996', "Send me something");
-  });
   res.sendStatus(200)
 })
 
@@ -143,3 +140,7 @@ let nesto = (sender, text) => {
     sendTextMessage(sender, "How are you?");
   }, 1000);
 };
+
+schedule.scheduleJob("*/1 * * * *", function() {
+  sendTextMessage('2047875771907996', "Send me something");
+});
