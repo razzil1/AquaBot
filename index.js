@@ -140,23 +140,21 @@ function sendGenericMessage(sender) {
   })
 }
 
-let nesto = (sender, text) => {
-  sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
-  setTimeout(function() {
-    sendTextMessage(sender, "How are you?");
-  }, 1000);
+let nesto = async (sender, text) => {
+  await sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
+  // setTimeout(function() {
+  //   sendTextMessage(sender, "How are you?");
+  // }, 1000);
+  sendTextMessage(sender, "How are you?");
+
 };
 
 let ubaciUBazu = async (sender) => {
   let user = await User.findOne({ name: sender });
   if (!user) {
     user = new User({name: sender, date: Date.now()});
-    console.log("Before save: User was not found, but has added");
     await user.save();
-    console.log("After save: User was not found, but has added");
 
-  } else {
-    console.log("User was find");
   }
 
 };
