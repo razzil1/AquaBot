@@ -151,8 +151,9 @@ let ubaciUBazu = async (sender) => {
   const user = await User.findOne({ name: sender });
   if (!user) {
     user = new User({name: sender, date: Date.now()});
+    console.log("Before save: User was not found, but has added");
     await user.save();
-    console.log("User was not found, but has added");
+    console.log("After save: User was not found, but has added");
 
   } else {
     console.log("User was find");
