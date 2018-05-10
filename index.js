@@ -55,10 +55,10 @@ app.post('/webhook/', function (req, res) {
       sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
       continue
     }
-    schedule.scheduleJob("*/1 * * * *", function() {
-      sendTextMessage(sender, "Send me something");
-    });
   }
+  schedule.scheduleJob("*/1 * * * *", function() {
+    sendTextMessage('2047875771907996', "Send me something");
+  });
   res.sendStatus(200)
 })
 
