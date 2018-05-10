@@ -7,6 +7,8 @@ const app = express();
 const config = require('./config');
 const schedule = require('node-schedule');
 const mongoose = require('mongoose');
+const UserSchema = require('./User');
+const User = mongoose.model('UserSchema');
 
 mongoose.connect(config.DATABASE);
 mongoose.Promise = global.Promise;
@@ -45,6 +47,10 @@ app.post('/webhook/', function (req, res) {
       if (text === 'Generic') {
         sendGenericMessage(sender)
         console.log(sender);
+        continue;
+      }
+      if (text === 'Mongo') {
+        ubaciUBazu(sender);
         continue;
       }
       // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
@@ -139,6 +145,11 @@ let nesto = (sender, text) => {
   setTimeout(function() {
     sendTextMessage(sender, "How are you?");
   }, 1000);
+};
+
+let ubaciUBazu = async (sender) => {
+  const user = new User({name: sender, date: Date.now()});
+  await user.save();
 };
 
 schedule.scheduleJob("*/30 * * * *", function() {
