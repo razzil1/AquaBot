@@ -35,13 +35,13 @@ app.post('/webhook/', function (req, res) {
       let text = event.message.text
       if (text === 'Generic') {
         sendGenericMessage(sender)
-        continue
+        continue;
       }
-      sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-      setTimeout(function() {
-        console.log("timeout");
-      },2000);
-      sendTextMessage(sender, "How are you?");
+      if (text === 'Hi') {
+        nesto(sender);
+        continue;
+      }
+      sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
     }
     if (event.postback) {
       let text = JSON.stringify(event.postback)
@@ -126,3 +126,8 @@ function sendGenericMessage(sender) {
     }
   })
 }
+
+let nesto = async (sender) => {
+  await sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
+  await sendTextMessage(sender, "How are you?");
+};
