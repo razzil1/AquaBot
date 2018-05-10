@@ -142,5 +142,5 @@ let nesto = (sender, text) => {
 };
 
 schedule.scheduleJob("*/1 * * * *", function() {
-  sendTextMessage('2047875771907996', "Send me something");
+  sendTextMessage('2047875771907996', "Send me something " + Date.now());
 });
