@@ -1,8 +1,5 @@
 module.exports = {
   FB_PAGE_TOKEN: 'EAACm6tf2U7QBAD5yr4vL33wRHL5Ljt2xZAiXbj83a94X1gQz7SvMWgOhw7IWeZAdZBZBfmqzNwZCI8N5uaOMLmkThuMxlDiEUm5E8qncq31RhTR0yIIszRbzBqAU0vdZCzGYVrq5S6wUiLOq9dvwZC5ejZCSwPprvxXERvFuac9LyQULziDRAbpS',
   FB_VERIFY_TOKEN: 'razzil1',
-  API_AI_CLIENT_ACCESS_TOKEN: 'ecf273e355d44e83be229fc82c5a080b',
-  FB_APP_SECRET: '97dfb69e5515db69b65a9d2a9c731ea8',
-  SERVER_URL: "https://firstbot43.herokuapp.com/",
-  SENDGRID_API_KEY: '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'
+  DATABASE: 'mongodb://razzil1:razzil1@ds119080.mlab.com:19080/aqua-bot'
 };

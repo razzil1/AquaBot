@@ -6,6 +6,13 @@ const request = require('request');
 const app = express();
 const config = require('./config');
 const schedule = require('node-schedule');
+const mongoose = require('mongoose');
+
+mongoose.connect(config.DATABASE);
+mongoose.Promise = global.Promise;
+mongoose.connection.on('error', (err) => {
+  console.error(`Connect to database. error message: ${err.message}`);
+});
 
 app.set('port', (process.env.PORT || 5000));
 
