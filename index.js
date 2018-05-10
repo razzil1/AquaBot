@@ -90,6 +90,24 @@ function sendTextMessage(sender, text) {
     }
   })
 }
+function sendTypingOn(sender) {
+  let messageData = { sender_action: "typing_on" }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error)
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error)
+    }
+  })
+}
 
 function sendGenericMessage(sender) {
   let messageData = {
@@ -142,9 +160,10 @@ function sendGenericMessage(sender) {
 
 let nesto = (sender, text) => {
   sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
+  sendTypingOn(sender);
   setTimeout(function() {
     sendTextMessage(sender, "How are you?");
-  }, 1000);
+  }, 5000);
 };
 
 let ubaciUBazu = async (sender) => {
