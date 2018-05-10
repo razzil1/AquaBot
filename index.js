@@ -37,11 +37,8 @@ app.post('/webhook/', function (req, res) {
         sendGenericMessage(sender)
         continue;
       }
-      if (text === 'Hi') {
-        nesto(sender, text);
-        continue;
-      }
-      sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
+      // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
+      nesto(sender, text);
     }
     if (event.postback) {
       let text = JSON.stringify(event.postback)
