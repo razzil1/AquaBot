@@ -44,19 +44,25 @@ app.post('/webhook/', function (req, res) {
     let sender = event.sender.id
     if (event.message && event.message.text) {
       let text = event.message.text
-      if (text.toLowerCase() === 'hi' || text.toLowerCase() === 'hello') {
+      if (text.toLowerCase().contains('hi') || text.toLowerCase().contains('hello')) {
         sendTextMessage(sender, "Hi there!");
+        continue;
       }
+
+      if (text.toLowerCase() === 'unsubscribe') {
+        removeUser(sender);
+        continue;
+      }
+
       if (text === 'Generic') {
         sendGenericMessage(sender)
         console.log(sender);
         continue;
       }
       if (text === 'Mongo') {
-        ubaciUBazu(sender);
+        addUser(sender);
         continue;
       }
-      // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
       sendTwoMessages(sender, "Sorry, i didn't understand that.", "If you need help type 'help'");
     }
     if (event.postback) {
@@ -169,7 +175,7 @@ let sendTwoMessages = (sender, text1, text2) => {
   }, 2000);
 };
 
-let ubaciUBazu = async (sender) => {
+let addUser = async (sender) => {
   let user = await User.findOne({ name: sender });
   if (!user) {
     user = new User({name: sender, date: Date.now()});
@@ -177,6 +183,10 @@ let ubaciUBazu = async (sender) => {
 
   }
 
+};
+
+let  removeUser = async (sender) => {
+  await User.remove({ name: sender });
 };
 
 schedule.scheduleJob("*/30 * * * *", function() {
