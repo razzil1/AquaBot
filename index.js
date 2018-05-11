@@ -55,6 +55,7 @@ app.post('/webhook/', function (req, res) {
         sendGenericMessage(sender)
         continue;
       }
+
       if (text === 'Reminder') {
         console.log("Text before is: " + text);
         sendQuickReply(sender);
@@ -72,6 +73,7 @@ app.post('/webhook/', function (req, res) {
       }
       sendTwoMessages(sender, "Sorry, i didn't understand that.", "If you need help type 'help'");
     }
+
     if (event.postback) {
       let text = JSON.stringify(event.postback)
       sendTextMessage(sender, "Postback received: "+text.substring(0, 200))
