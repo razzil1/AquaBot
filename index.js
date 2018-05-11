@@ -49,7 +49,7 @@ app.post('/webhook/', function (req, res) {
         continue;
       }
 
-      if (text.toLowerCase() === 'unsubscribe') {
+      if (text.toString().toLowerCase() === 'unsubscribe') {
         removeUser(sender);
         continue;
       }
