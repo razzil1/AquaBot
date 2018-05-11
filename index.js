@@ -44,6 +44,9 @@ app.post('/webhook/', function (req, res) {
     let sender = event.sender.id
     if (event.message && event.message.text) {
       let text = event.message.text
+      if (text.toLowerCase() === 'hi' || text.toLowerCase() === 'hello') {
+        sendTextMessage(sender, "Hi there!");
+      }
       if (text === 'Generic') {
         sendGenericMessage(sender)
         console.log(sender);
@@ -54,7 +57,7 @@ app.post('/webhook/', function (req, res) {
         continue;
       }
       // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
-      nesto(sender, text);
+      sendTwoMessages(sender, "Sorry, i didn't understand that.", "If you need help type 'help'");
     }
     if (event.postback) {
       let text = JSON.stringify(event.postback)
@@ -158,12 +161,12 @@ function sendGenericMessage(sender) {
   })
 }
 
-let nesto = (sender, text) => {
-  // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200));
+let sendTwoMessages = (sender, text1, text2) => {
+  sendTextMessage(sender, text1);
   sendTypingOn(sender);
   setTimeout(function() {
-    sendTextMessage(sender, "How are you?");
-  }, 5000);
+    sendTextMessage(sender, text2);
+  }, 2000);
 };
 
 let ubaciUBazu = async (sender) => {
