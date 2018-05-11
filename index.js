@@ -114,17 +114,17 @@ function sendQuickReply(sender) {
   let messageData = {
     "quick_replies":[
       {
-        "content_type":"postback",
+        "content_type":"text",
         "title":"Once",
         "payload":"1"
       },
       {
-        "content_type":"postback",
+        "content_type":"text",
         "title":"Twice",
         "payload":"2"
       },
       {
-        "content_type":"postback",
+        "content_type":"text",
         "title":"Three times",
         "payload":"3"
       }
