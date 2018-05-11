@@ -56,8 +56,8 @@ app.post('/webhook/', function (req, res) {
         continue;
       }
       if (text === 'Reminder') {
-        sendTextMessage(sender, "How many times would you like me to remind you?");
-
+        // sendTextMessage(sender, "How many times would you like me to remind you?");
+        sendQuickReply(sender);
         addUser(sender);
         continue;
       }
