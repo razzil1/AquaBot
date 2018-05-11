@@ -56,7 +56,10 @@ app.post('/webhook/', function (req, res) {
         continue;
       }
       if (text === 'Reminder') {
+        console.log("Text before is: " + text);
         sendQuickReply(sender);
+        text = req.body.entry[0].messaging[0]
+        console.log("Text after is: " + text);
         if (text === 'Once') {
           sendTextMessage(sender, "Once is fine");
         } else if (text === 'Twice') {
