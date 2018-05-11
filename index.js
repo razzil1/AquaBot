@@ -95,24 +95,7 @@ function sendTextMessage(sender, text) {
     }
   })
 }
-function sendTypingOn(sender) {
-  let messageData = { "sender_action":"typing_on" }
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending messages: ', error)
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
-    }
-  })
-}
+
 
 function sendGenericMessage(sender) {
   let messageData = {
@@ -165,7 +148,6 @@ function sendGenericMessage(sender) {
 
 let sendTwoMessages = (sender, text1, text2) => {
   sendTextMessage(sender, text1);
-  sendTypingOn(sender);
   setTimeout(function() {
     sendTextMessage(sender, text2);
   }, 2000);
