@@ -112,20 +112,19 @@ function sendTextMessage(sender, text) {
 function sendQuickReply(sender) {
 
   let messageData = {
-    "text": "Here is a quick reply!",
     "quick_replies":[
       {
-        "content_type":"text",
+        "content_type":"postback",
         "title":"Once",
         "payload":"1"
       },
       {
-        "content_type":"text",
+        "content_type":"postback",
         "title":"Twice",
         "payload":"2"
       },
       {
-        "content_type":"text",
+        "content_type":"postback",
         "title":"Three times",
         "payload":"3"
       }
