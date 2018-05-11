@@ -57,6 +57,13 @@ app.post('/webhook/', function (req, res) {
       }
       if (text === 'Reminder') {
         sendQuickReply(sender);
+        if (text === 'Once') {
+          sendTextMessage(sender, "Once is fine");
+        } else if (text === 'Twice') {
+          sendTextMessage(sender, "Twice if fine");
+        } else if (text === 'Three times') {
+          sendTextMessage(sender, "Three times");
+        }
         addUser(sender);
         continue;
       }
