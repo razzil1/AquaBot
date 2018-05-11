@@ -47,15 +47,17 @@ app.post('/webhook/', function (req, res) {
 
       if (text === 'Unsubscribe') {
         removeUser(sender);
+        sendTextMessage(sender, "You won't receive reminder any more.");
         continue;
       }
 
       if (text === 'Generic') {
         sendGenericMessage(sender)
-        console.log(sender);
         continue;
       }
-      if (text === 'Mongo') {
+      if (text === 'Reminder') {
+        sendTextMessage(sender, "How many times would you like me to remind you?");
+
         addUser(sender);
         continue;
       }
@@ -79,6 +81,57 @@ app.listen(app.get('port'), function() {
 
 function sendTextMessage(sender, text) {
   let messageData = { text:text }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+  json: {
+      recipient: {id:sender},
+    message: messageData,
+  }
+}, function(error, response, body) {
+  if (error) {
+      console.log('Error sending messages: ', error)
+  } else if (response.body.error) {
+      console.log('Error: ', response.body.error)
+    }
+  })
+}
+
+// var messageData = {
+//   recipient: {
+//     id: recipientId
+//   },
+//   message: {
+//     text: text,
+//     metadata: isDefined(metadata)?metadata:'',
+//     quick_replies: replies
+//   }
+// };
+
+function sendQuickReply(sender) {
+
+  let messageData = {
+    "text": "Here is a quick reply!",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Once",
+        "payload":"1"
+      },
+      {
+        "content_type":"text",
+        "title":"Twice",
+        "payload":"2"
+      },
+      {
+        "content_type":"text",
+        "title":"Three times",
+        "payload":"3"
+      }
+    ]
+  }
+
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
