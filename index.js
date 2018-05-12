@@ -57,20 +57,26 @@ app.post('/webhook/', function (req, res) {
       }
 
       if (text === 'Reminder') {
-        console.log("Text before is: " + text);
         sendQuickReply(sender);
-        text = req.body.entry[0]
-        console.log("Text after is: " + text);
-        if (text === 'Once') {
-          sendTextMessage(sender, "Once is fine");
-        } else if (text === 'Twice') {
-          sendTextMessage(sender, "Twice if fine");
-        } else if (text === 'Three times') {
-          sendTextMessage(sender, "Three times");
-        }
         addUser(sender);
         continue;
       }
+
+      if (text === 'Once') {
+        sendTextMessage(sender, "Once is fine");
+        continue;
+      }
+
+      if (text === 'Twice') {
+        sendTextMessage(sender, "Twice if fine");
+        continue;
+      }
+
+      if (text === 'Three times') {
+        sendTextMessage(sender, "Three times");
+        continue;
+      }
+
       sendTwoMessages(sender, "Sorry, i didn't understand that.", "If you need help type 'help'");
     }
 
