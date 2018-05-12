@@ -231,3 +231,17 @@ let  removeUser = async (sender) => {
 schedule.scheduleJob("*/30 * * * *", function() {
   sendTextMessage('2047875771907996', "Send me something " + Date.now());
 });
+
+let remindUsers = () => {
+  let users = User.find({
+     $or: [
+       { remind: 1 },
+       { remind: 2 },
+       { remind: 3 }
+      ]
+    });
+
+    if(users.length) {
+      console.log(users);
+    }
+};
