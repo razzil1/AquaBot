@@ -235,7 +235,7 @@ schedule.scheduleJob("*/1 * * * *", function() {
 let remindUsers = async () => {
 
   let time = new Date();
-  let hours = time.getHours();
+  let hours = time.getHours() + 2;
 
   let users = await User.find({
      "$or": [
