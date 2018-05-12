@@ -58,22 +58,24 @@ app.post('/webhook/', function (req, res) {
 
       if (text === 'Reminder') {
         sendQuickReply(sender);
-        addUser(sender);
         continue;
       }
 
       if (text === 'Once') {
-        sendTextMessage(sender, "Once is fine");
+        addUser(sender, 1);
+        sendTextMessage(sender, "I will remind you once a day.");
         continue;
       }
 
       if (text === 'Twice') {
-        sendTextMessage(sender, "Twice if fine");
+        addUser(sender, 2);
+        sendTextMessage(sender, "I will remind you twice a day.");
         continue;
       }
 
       if (text === 'Three times') {
-        sendTextMessage(sender, "Three times");
+        addUser(sender, 3);
+        sendTextMessage(sender, "I will remind you three times a day");
         continue;
       }
 
@@ -115,17 +117,6 @@ function sendTextMessage(sender, text) {
   })
 }
 
-// var messageData = {
-//   recipient: {
-//     id: recipientId
-//   },
-//   message: {
-//     text: text,
-//     metadata: isDefined(metadata)?metadata:'',
-//     quick_replies: replies
-//   }
-// };
-
 function sendQuickReply(sender) {
 
   let messageData = {
@@ -134,17 +125,17 @@ function sendQuickReply(sender) {
       {
         "content_type":"text",
         "title":"Once",
-        "payload":"1"
+        "payload":"Once"
       },
       {
         "content_type":"text",
         "title":"Twice",
-        "payload":"2"
+        "payload":"Twice"
       },
       {
         "content_type":"text",
         "title":"Three times",
-        "payload":"3"
+        "payload":"Three times"
       }
     ]
   }
@@ -220,13 +211,13 @@ let sendTwoMessages = (sender, text1, text2) => {
   sendTextMessage(sender, text1);
   setTimeout(function() {
     sendTextMessage(sender, text2);
-  }, 2000);
+  }, 1500);
 };
 
-let addUser = async (sender) => {
-  let user = await User.findOne({ name: sender });
+let addUser = async (sender, remind) => {
+  let user = await User.findOne({ sender: sender });
   if (!user) {
-    user = new User({name: sender, date: Date.now()});
+    user = new User({sender: sender, remind: remind });
     await user.save();
 
   }

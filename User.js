@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 const userSchema = new Schema({
-  name: {
+  sender: {
     type: String,
     trim: true
   },
-  date: Date
+  remind: Number
 });
 
 module.exports = mongoose.model('UserSchema', userSchema);
