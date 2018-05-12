@@ -228,8 +228,8 @@ let  removeUser = async (sender) => {
   await User.remove({ sender: sender });
 };
 
-schedule.scheduleJob("*/30 * * * *", function() {
-  sendTextMessage('2047875771907996', "Send me something " + Date.now());
+schedule.scheduleJob("*/1 * * * *", function() {
+  remindUsers();
 });
 
 let remindUsers = () => {
