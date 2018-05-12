@@ -228,7 +228,7 @@ let  removeUser = async (sender) => {
   await User.remove({ sender: sender });
 };
 
-schedule.scheduleJob("*/1 * * * *", function() {
+schedule.scheduleJob("*/30 * * * *", function() {
   remindUsers();
 });
 
@@ -238,7 +238,7 @@ let remindUsers = async () => {
   let hours = time.getHours() + 2;
   let morning = 9;
   let afternoon = 15;
-  let evening = 18;
+  let evening = 19;
   let reminder = 'none';
 
   if (hours === morning) {
