@@ -233,13 +233,7 @@ schedule.scheduleJob("*/1 * * * *", function() {
 });
 
 let remindUsers = () => {
-  let users = User.find({
-     "$or": [
-       { remind: 1 },
-       { remind: 2 },
-       { remind: 3 }
-      ]
-    });
+  let users = User.find({ remind: 1 });
 
     if(users.length) {
       console.log(users);
