@@ -244,4 +244,8 @@ let remindUsers = () => {
     if(users.length) {
       console.log(users);
     }
+    else
+    {
+      console.log("Its empty");
+    }
 };
