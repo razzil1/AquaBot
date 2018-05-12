@@ -260,7 +260,11 @@ let remindUsers = async () => {
 
     if(users.length) {
       if (reminder === 'morning') {
-        users.map(user => sendTextMessage(user.sender, "Its morning"));
+        users.map(user => {
+          if (user) {
+            sendTextMessage(user.sender, "Its morning");
+          }
+        });
       } else if (reminder === 'afternoon') {
         users.filter(user => user.remind === 2 || user.remind === 3).map(user => {
           if(user) {
