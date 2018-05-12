@@ -232,8 +232,8 @@ schedule.scheduleJob("*/1 * * * *", function() {
   remindUsers();
 });
 
-let remindUsers = () => {
-  let users = User.find({ remind: 1 });
+let remindUsers = async () => {
+  let users = await User.find({ remind: 1 });
 
     if(users.length) {
       console.log(users);
