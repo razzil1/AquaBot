@@ -233,7 +233,13 @@ schedule.scheduleJob("*/1 * * * *", function() {
 });
 
 let remindUsers = async () => {
-  let users = await User.find({ remind: 1 });
+  let users = await User.find({
+     "$or": [
+       { remind: 1 },
+       { remind: 2 },
+       { remind: 3 }
+      ]
+    });
 
     if(users.length) {
       console.log(users);
