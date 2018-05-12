@@ -225,7 +225,7 @@ let addUser = async (sender, remind) => {
 };
 
 let  removeUser = async (sender) => {
-  await User.remove({ name: sender });
+  await User.remove({ sender: sender });
 };
 
 schedule.scheduleJob("*/30 * * * *", function() {
