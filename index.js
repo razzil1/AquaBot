@@ -263,6 +263,8 @@ let remindUsers = async () => {
         users.map(user => sendTextMessage(user.sender, "Its morning"));
       } else if (reminder === 'afternoon') {
         users.filter(user => user.remind === 2 || user.remind === 3).map(user => sendTextMessage(user.sender, "Its afternoon"))
+      } else if (reminder === 'evening') {
+        user.filter(user => user.remind === 3).map(user => sendTextMessage(user.sender, "Its evening"));
       }
     }
     else
