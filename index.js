@@ -238,7 +238,7 @@ let remindUsers = async () => {
   let hours = time.getHours() + 2;
   let morning = 9;
   let afternoon = 15;
-  let evening = 21;
+  let evening = 18;
   let reminder = 'none';
 
   if (hours === morning) {
