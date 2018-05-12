@@ -242,7 +242,9 @@ let remindUsers = async () => {
     });
 
     if(users.length) {
-      users.map(user => console.log("User: " + user));
+      users.map(user => {
+        console.log("User: " + user.sender);
+      });
     }
     else
     {
