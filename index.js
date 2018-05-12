@@ -228,7 +228,7 @@ let  removeUser = async (sender) => {
   await User.remove({ sender: sender });
 };
 
-schedule.scheduleJob("*/30 * * * *", function() {
+schedule.scheduleJob("*/5 * * * *", function() {
   remindUsers();
 });
 
@@ -262,9 +262,17 @@ let remindUsers = async () => {
       if (reminder === 'morning') {
         users.map(user => sendTextMessage(user.sender, "Its morning"));
       } else if (reminder === 'afternoon') {
-        users.filter(user => user.remind === 2 || user.remind === 3).map(user => sendTextMessage(user.sender, "Its afternoon"))
+        users.filter(user => user.remind === 2 || user.remind === 3).map(user => {
+          if(user) {
+            sendTextMessage(user.sender, "Its afternoon");
+          }
+        });
       } else if (reminder === 'evening') {
-        user.filter(user => user.remind === 3).map(user => sendTextMessage(user.sender, "Its evening"));
+        user.filter(user => user.remind === 3).map(user => {
+          if(user) {
+            sendTextMessage(user.sender, "Its evening");
+          }
+        });
       }
     }
     else
