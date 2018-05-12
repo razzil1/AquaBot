@@ -236,6 +236,19 @@ let remindUsers = async () => {
 
   let time = new Date();
   let hours = time.getHours() + 2;
+  let morning = 9;
+  let afternoon = 15;
+  let evening = 21;
+  let reminder = 'none';
+
+  if (hours === morning) {
+    reminder = 'morning';
+  } else if (hours === afternoon) {
+    reminder = 'afternoon';
+  } else if (hours === evening) {
+    reminder = 'evening';
+  }
+
 
   let users = await User.find({
      "$or": [
@@ -246,9 +259,11 @@ let remindUsers = async () => {
     });
 
     if(users.length) {
-      users.map(user => {
-        console.log("Hours: " + hours);
-      });
+      if (reminder === 'morning') {
+        users.map(user => sendTextMessage(user.sender, "Its morning"));
+      } else if (reminder === 'afternoon') {
+        users.filter(user => user.remind === 2 || user.remind === 3).map(user => sendTextMessage(user.sender, "Its afternoon"))
+      }
     }
     else
     {
