@@ -91,7 +91,7 @@ app.post('/webhook/', async function (req, res) {
       }
 
       if (payload === 'I don\'t count') {
-        await sendImage(sender, process.env.IMAGE_LOW);
+        await sendImage(sender, process.env.GIF);
         await sendTextMessage(sender, "Recommended amount of water per day is eight 8-ounce glasses, equals to about 2 liters, or half a gallon.");
         await sendTextMessage(sender, "If you want me to remind you type 'remind'");
         continue;
@@ -108,10 +108,10 @@ app.post('/webhook/', async function (req, res) {
         continue;
       }
 
-      if (text === 'Generic') {
-        sendGenericMessage(sender)
-        continue;
-      }
+      // if (text === 'Generic') {
+      //   sendGenericMessage(sender)
+      //   continue;
+      // }
 
       if (text === 'remind') {
         sendQuickReplyes(sender, "How many times would you like me to remind you?", ['Once', 'Twice', 'Three times']);
@@ -235,54 +235,54 @@ let sendQuickReplyes = (sender, title, replies) => {
 }
 
 
-let sendGenericMessage = (sender) => {
-  let messageData = {
-    "attachment": {
-      "type": "template",
-      "payload": {
-      "template_type": "generic",
-        "elements": [{
-        "title": "First card",
-          "subtitle": "Element #1 of an hscroll",
-          "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-          "buttons": [{
-            "type": "web_url",
-            "url": "https://www.messenger.com",
-            "title": "web url"
-          }, {
-            "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for first element in a generic bubble",
-          }],
-        }, {
-          "title": "Second card",
-          "subtitle": "Element #2 of an hscroll",
-          "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-          "buttons": [{
-            "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for second element in a generic bubble",
-          }],
-        }]
-      }
-    }
-  }
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending messages: ', error)
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
-    }
-  })
-}
+// let sendGenericMessage = (sender) => {
+//   let messageData = {
+//     "attachment": {
+//       "type": "template",
+//       "payload": {
+//       "template_type": "generic",
+//         "elements": [{
+//         "title": "First card",
+//           "subtitle": "Element #1 of an hscroll",
+//           "image_url": "http://liquipedia.net/commons/images/thumb/c/c5/Teamfacelesslogo.png/600px-Teamfacelesslogo.png",
+//           "buttons": [{
+//             "type": "web_url",
+//             "url": "https://www.github.com/razzil1",
+//             "title": "Dusan Pilipovic"
+//           }, {
+//             "type": "postback",
+//             "title": "Postback",
+//             "payload": "Payload for first element in a generic bubble",
+//           }],
+//         }, {
+//           "title": "Second card",
+//           "subtitle": "Element #2 of an hscroll",
+//           "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+//           "buttons": [{
+//             "type": "postback",
+//             "title": "Postback",
+//             "payload": "Payload for second element in a generic bubble",
+//           }],
+//         }]
+//       }
+//     }
+//   }
+//   request({
+//     url: 'https://graph.facebook.com/v2.6/me/messages',
+//     qs: {access_token:token},
+//     method: 'POST',
+//     json: {
+//       recipient: {id:sender},
+//       message: messageData,
+//     }
+//   }, function(error, response, body) {
+//     if (error) {
+//       console.log('Error sending messages: ', error)
+//     } else if (response.body.error) {
+//       console.log('Error: ', response.body.error)
+//     }
+//   })
+// }
 
 let addUser = async (sender, remind) => {
   let user = await User.findOneAndUpdate({ sender: sender }, { $set: {remind: remind} });
@@ -297,7 +297,7 @@ let  removeUser = async (sender) => {
   await User.remove({ sender: sender });
 };
 
-schedule.scheduleJob("*/1 * * * *", function() {
+schedule.scheduleJob("*/30 * * * *", function() {
   let time = new Date();
   let hours = time.getHours() + 2;
   let reminder;
