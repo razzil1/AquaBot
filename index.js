@@ -39,6 +39,8 @@ app.get('/webhook/', function (req, res) {
 
 app.post('/webhook/', function (req, res) {
   let messaging_events = req.body.entry[0].messaging
+  console.log("This is what you get: " + req.body);
+
   for (let i = 0; i < messaging_events.length; i++) {
     let event = req.body.entry[0].messaging[i]
     let sender = event.sender.id
@@ -228,7 +230,7 @@ let  removeUser = async (sender) => {
   await User.remove({ sender: sender });
 };
 
-schedule.scheduleJob("*/5 * * * *", function() {
+schedule.scheduleJob("* */5 * * *", function() {
   remindUsers();
 });
 
@@ -236,51 +238,42 @@ let remindUsers = async () => {
 
   let time = new Date();
   let hours = time.getHours() + 2;
-  let morning = 9;
-  let afternoon = 15;
-  let evening = 19;
   let reminder = 'none';
 
-  if (hours === morning) {
+  if (hours === config.MORNING) {
     reminder = 'morning';
-  } else if (hours === afternoon) {
+  } else if (hours === config.AFTERNOON) {
     reminder = 'afternoon';
-  } else if (hours === evening) {
+  } else if (hours === config.EVENING) {
     reminder = 'evening';
   }
 
 
-  let users = await User.find({
-     "$or": [
-       { remind: 1 },
-       { remind: 2 },
-       { remind: 3 }
-      ]
-    });
+  let users = await User.find();
 
     if(users.length) {
       if (reminder === 'morning') {
-        users.map(user => {
-          if (user) {
-            sendTextMessage(user.sender, "Its morning");
-          }
-        });
+        users.map(user => { sendTextMessage(user.sender, 'Its morning') });
       } else if (reminder === 'afternoon') {
-        users.filter(user => user.remind === 2 || user.remind === 3).map(user => {
-          if(user) {
-            sendTextMessage(user.sender, "Its afternoon");
-          }
-        });
+        let filterUsers = users.filter(user => user.remind === 2 || user.remind === 3)
+
+        if(filterUsers) {
+          filterUsers.map(user => {
+            sendTextMessage(sender, 'Its morning');
+          })
+        }
+
       } else if (reminder === 'evening') {
-        user.filter(user => user.remind === 3).map(user => {
-          if(user) {
-            sendTextMessage(user.sender, "Its evening");
-          }
-        });
+        let filterUsers = user.filter(user => user.remind === 3);
+        if(filterUsers) {
+          filterUsers.map(user => {
+            sendTextMessage(sender, 'Its evening');
+          })
+        }
       }
     }
     else
     {
-      console.log("Its empty");
+      console.log('There is no user to remind');
     }
 };
