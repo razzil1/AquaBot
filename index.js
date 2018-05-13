@@ -118,6 +118,11 @@ app.post('/webhook/', async function (req, res) {
         continue;
       }
 
+      if (text === 'help') {
+        await sendTextMessage(sender, "To set or change reminder type 'remind'");
+        await sendTextMessage(sender, "To disable reminder type 'unsubscribe'");
+      }
+
       await sendTextMessage(sender, "Sorry, i didn't understand that.");
       await sendTextMessage(sender, "If you need help type 'help'");
     }
