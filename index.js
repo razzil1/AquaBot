@@ -4,13 +4,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
-const config = require('./config');
 const schedule = require('node-schedule');
 const mongoose = require('mongoose');
 const UserSchema = require('./User');
 const User = mongoose.model('UserSchema');
+require('dotenv').config({ path: 'variables.env' });
 
-mongoose.connect(config.DATABASE);
+mongoose.connect(process.env.DATABASE);
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
   console.error(`Connect to database. error message: ${err.message}`);
@@ -31,7 +31,7 @@ app.get('/', function (req, res) {
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-	if (req.query['hub.verify_token'] === config.FB_VERIFY_TOKEN) {
+	if (req.query['hub.verify_token'] === process.env.FB_VERIFY_TOKEN) {
 		res.send(req.query['hub.challenge'])
 	}
 	res.send('Error, wrong token')
@@ -67,25 +67,25 @@ app.post('/webhook/', async function (req, res) {
       }
 
       if (payload === '1-2 cups') {
-        await sendImage(sender, config.IMAGE_LOW);
+        await sendImage(sender, process.env.IMAGE_LOW);
         await sendTextMessage(sender, "Recommended amount of water per day is eight 8-ounce glasses, equals to about 2 liters, or half a gallon.");
         continue;
       }
 
       if (payload === '3-5 cups') {
-        await sendImage(sender, config.IMAGE_OK);
+        await sendImage(sender, process.env.IMAGE_OK);
         await sendTextMessage(sender, "Recommended amount of water per day is eight 8-ounce glasses, equals to about 2 liters, or half a gallon.");
         continue;
       }
 
       if (payload === '6 and more') {
-        await sendImage(sender, config.IMAGE_HIGH);
+        await sendImage(sender, process.env.IMAGE_HIGH);
         await sendTextMessage(sender, "Your'e a real champ! 8 cups is the recommended amount.");
         continue;
       }
 
       if (payload === 'I don\'t count') {
-        await sendImage(sender, config.IMAGE_LOW);
+        await sendImage(sender, process.env.IMAGE_LOW);
         await sendTextMessage(sender, "Recommended amount of water per day is eight 8-ounce glasses, equals to about 2 liters, or half a gallon.");
         continue;
       }
@@ -132,7 +132,7 @@ app.post('/webhook/', async function (req, res) {
   res.sendStatus(200);
 })
 
-const token = config.FB_PAGE_TOKEN;
+const token = process.env.FB_PAGE_TOKEN;
 
 // Spin up the server
 app.listen(app.get('port'), function() {
@@ -295,11 +295,11 @@ schedule.scheduleJob("*/5 * * * *", function() {
   let hours = time.getHours() + 2;
   let reminder;
 
-  if (hours === config.MORNING) {
+  if (hours === process.env.MORNING) {
     remindUsers('morning');
-  } else if (hours === config.AFTERNOON) {
+  } else if (hours === process.env.AFTERNOON) {
     remindUsers('afternoon');
-  } else if (hours === config.EVENING) {
+  } else if (hours === process.env.EVENING) {
     remindUsers('evening');
   }
 });
