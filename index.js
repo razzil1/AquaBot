@@ -231,49 +231,45 @@ let  removeUser = async (sender) => {
 };
 
 schedule.scheduleJob("*/5 * * * *", function() {
-  remindUsers();
-});
-
-let remindUsers = async () => {
-
   let time = new Date();
   let hours = time.getHours() + 2;
-  let reminder = 'none';
+  let reminder;
 
   if (hours === config.MORNING) {
-    reminder = 'morning';
+    remindUsers('morning');
   } else if (hours === config.AFTERNOON) {
-    reminder = 'afternoon';
+    remindUsers('afternoon');
   } else if (hours === config.EVENING) {
-    reminder = 'evening';
+    remindUsers('evening');
   }
+});
 
+let remindUsers = async (reminder) => {
 
   let users = await User.find();
 
-    if(users.length) {
-      if (reminder === 'morning') {
-        users.map(user => { sendTextMessage(user.sender, 'Its morning') });
-      } else if (reminder === 'afternoon') {
-        let filterUsers = users.filter(user => user.remind === 2 || user.remind === 3);
+  if(users.length) {
+    if (reminder === 'morning') {
+      users.map(user => { sendTextMessage(user.sender, 'Its morning') });
+    } else if (reminder === 'afternoon') {
+      let filterUsers = users.filter(user => user.remind === 2 || user.remind === 3);
 
-        if(filterUsers) {
-          filterUsers.map(user => {
-            sendTextMessage(user.sender, 'Its afternoon');
-          });
-        }
+      if(filterUsers) {
+        filterUsers.map(user => {
+          sendTextMessage(user.sender, 'Its afternoon');
+        });
+      }
 
-      } else if (reminder === 'evening') {
-        let filterUsers = user.filter(user => user.remind === 3);
-        if(filterUsers) {
-          filterUsers.map(user => {
-            sendTextMessage(user.sender, 'Its evening');
-          })
-        }
+    } else if (reminder === 'evening') {
+      let filterUsers = user.filter(user => user.remind === 3);
+      if(filterUsers) {
+        filterUsers.map(user => {
+          sendTextMessage(user.sender, 'Its evening');
+        });
       }
     }
-    else
-    {
-      console.log('There is no user to remind');
-    }
+  }
+  else {
+    console.log('There is no user to remind');
+  }
 };
