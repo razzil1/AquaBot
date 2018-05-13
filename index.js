@@ -50,6 +50,7 @@ app.post('/webhook/', function (req, res) {
 
       if (payload === 'Once') {
         addUser(sender, 1);
+        sendImage(sender, `./public/low.jpg`);
         sendTextMessage(sender, "I will remind you once a day.");
         continue;
       }
@@ -109,6 +110,33 @@ app.listen(app.get('port'), function() {
 
 function sendTextMessage(sender, text) {
   let messageData = { text:text }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+  json: {
+      recipient: {id:sender},
+    message: messageData,
+  }
+}, function(error, response, body) {
+  if (error) {
+      console.log('Error sending messages: ', error)
+  } else if (response.body.error) {
+      console.log('Error: ', response.body.error)
+    }
+  })
+}
+
+function sendImage(sender, url) {
+  let messageData = {
+    "attachment":{
+      "type":"image",
+      "payload":{
+        "url":url,
+        "is_reusable":true
+      }
+    }
+  }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
