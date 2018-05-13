@@ -259,7 +259,7 @@ let remindUsers = async () => {
 
         if(filterUsers) {
           filterUsers.map(user => {
-            sendTextMessage(sender, 'Its afternoon');
+            sendTextMessage(user.sender, 'Its afternoon');
           });
         }
 
@@ -267,7 +267,7 @@ let remindUsers = async () => {
         let filterUsers = user.filter(user => user.remind === 3);
         if(filterUsers) {
           filterUsers.map(user => {
-            sendTextMessage(sender, 'Its evening');
+            sendTextMessage(user.sender, 'Its evening');
           })
         }
       }
