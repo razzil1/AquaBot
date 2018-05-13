@@ -39,7 +39,7 @@ app.get('/webhook/', function (req, res) {
 
 app.post('/webhook/', function (req, res) {
   let messaging_events = req.body.entry[0].messaging
-  console.log("This is what you get: %j", req.body);
+  // console.log("This is what you get: %j", req.body);
 
   for (let i = 0; i < messaging_events.length; i++) {
     let event = req.body.entry[0].messaging[i]
@@ -84,13 +84,18 @@ app.post('/webhook/', function (req, res) {
       sendTwoMessages(sender, "Sorry, i didn't understand that.", "If you need help type 'help'");
     }
 
+    if(event.message && event.message['quick-reply']) {
+      console.log(event.message['quick-reply']);
+    }
+
     if (event.postback) {
       let text = JSON.stringify(event.postback)
-      sendTextMessage(sender, "Postback received: "+text.substring(0, 200))
+      sendTextMessage(sender, "Postback received: "+text.substring(0, 200));
       continue
     }
+
   }
-  res.sendStatus(200)
+  res.sendStatus(200);
 })
 
 const token = config.FB_PAGE_TOKEN;
