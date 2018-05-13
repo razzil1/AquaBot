@@ -39,7 +39,7 @@ app.get('/webhook/', function (req, res) {
 
 app.post('/webhook/', function (req, res) {
   let messaging_events = req.body.entry[0].messaging
-  console.log("This is what you get: " + req.body);
+  console.log("This is what you get: %j", req.body);
 
   for (let i = 0; i < messaging_events.length; i++) {
     let event = req.body.entry[0].messaging[i]
