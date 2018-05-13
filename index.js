@@ -184,7 +184,7 @@ function sendQuickReplyes(sender, title, replies) {
     "quick_replies":[]
   }
 
-  replies.map(reply => messageData.['quick_replies'].append(createQucikReply(reply)));
+  replies.map(reply => messageData['quick_replies'].append(createQucikReply(reply)));
 
 
   request({
