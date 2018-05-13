@@ -50,22 +50,19 @@ app.post('/webhook/', async function (req, res) {
 
       if (payload === 'Once') {
         addUser(sender, 1);
-        await sendImage(sender, config.IMAGE_LOW);
-        await sendTextMessage(sender, "I will remind you once a day.");
+        sendTextMessage(sender, "I will remind you once a day.");
         continue;
       }
 
       if (payload === 'Twice') {
         addUser(sender, 2);
-        await sendImage(sender, config.IMAGE_OK);
-        await sendTextMessage(sender, "I will remind you twice a day.");
+        sendTextMessage(sender, "I will remind you twice a day.");
         continue;
       }
 
       if (payload === 'Three times') {
         addUser(sender, 3);
-        await sendImage(sender, config.IMAGE_HIGH);
-        await sendTextMessage(sender, "I will remind you three times a day");
+        sendTextMessage(sender, "I will remind you three times a day");
         continue;
       }
 
@@ -86,7 +83,7 @@ app.post('/webhook/', async function (req, res) {
       }
 
       if (text === 'Reminder') {
-        sendQuickReply(sender);
+        sendQuickReplyes(sender, "How many times would you like me to remind you?", ['Once', 'Twice', 'Three times']);
         continue;
       }
 
@@ -96,8 +93,16 @@ app.post('/webhook/', async function (req, res) {
 
     if (event.postback) {
       let payload = event.postback.payload;
-      sendTextMessage(sender, "Postback received: "+ payload);
-      continue
+
+      if (payload == 'Get Started') {
+        await sendTextMessage(sender, 'Hi there! I will be your personal water trainer :)');
+        await sendTextMessage(sender, 'Before we begin...');
+        await sendTextMessage(sender, 'Before we begin...');
+        await sendQuickReplyes(sender, 'How many cups of water do you drink a day?', ['1-2 cups', '3-5 cups', '6 and more', 'I don\'t count']);
+        continue;
+      }
+
+
     }
 
   }
@@ -164,28 +169,23 @@ function sendImage(sender, url) {
   })
 }
 
-function sendQuickReply(sender) {
+function createQucikReply(text) {
+  return {
+    "content_type":"text",
+    "title": text,
+    "payload": text
+  }
+}
+
+function sendQuickReplyes(sender, title, replies) {
 
   let messageData = {
-    "text": "How many times would you like me to remind you?",
-    "quick_replies":[
-      {
-        "content_type":"text",
-        "title":"Once",
-        "payload":"Once"
-      },
-      {
-        "content_type":"text",
-        "title":"Twice",
-        "payload":"Twice"
-      },
-      {
-        "content_type":"text",
-        "title":"Three times",
-        "payload":"Three times"
-      }
-    ]
+    "text": title,
+    "quick_replies":[]
   }
+
+  replies.map(reply => messageData.quick_replies.append(createQucikReply(reply)));
+
 
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
