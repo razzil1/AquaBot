@@ -128,8 +128,9 @@ function sendTextMessage(sender, text) {
     if (error) {
         reject(error);
     } else if (response.body.error) {
-        resolve('It works');
+        reject(response.body.error);
       }
+    resolve('It works');
     })
   })
 }
