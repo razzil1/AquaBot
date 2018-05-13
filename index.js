@@ -66,6 +66,30 @@ app.post('/webhook/', async function (req, res) {
         continue;
       }
 
+      if (payload === '1-2 cups') {
+        await sendImage(sender, config.IMAGE_LOW);
+        await sendTextMessage(sender, "Recommended amount of water per day is eight 8-ounce glasses, equals to about 2 liters, or half a gallon.");
+        continue;
+      }
+
+      if (payload === '3-5 cups') {
+        await sendImage(sender, config.IMAGE_OK);
+        await sendTextMessage(sender, "Recommended amount of water per day is eight 8-ounce glasses, equals to about 2 liters, or half a gallon.");
+        continue;
+      }
+
+      if (payload === '6 and more') {
+        await sendImage(sender, config.IMAGE_HIGH);
+        await sendTextMessage(sender, "Your'e a real champ! 8 cups is the recommended amount.");
+        continue;
+      }
+
+      if (payload === 'I don\'t count') {
+        await sendImage(sender, config.IMAGE_LOW);
+        await sendTextMessage(sender, "Recommended amount of water per day is eight 8-ounce glasses, equals to about 2 liters, or half a gallon.");
+        continue;
+      }
+
     }
 
     if (event.message && event.message.text) {
@@ -97,8 +121,7 @@ app.post('/webhook/', async function (req, res) {
       if (payload == 'Get Started') {
         await sendTextMessage(sender, 'Hi there! I will be your personal water trainer :)');
         await sendTextMessage(sender, 'Before we begin...');
-        await sendTextMessage(sender, 'Before we begin...');
-        await sendQuickReplyes(sender, 'How many cups of water do you drink a day?', ['1-2 cups', '3-5 cups', '6 and more', 'I dont count']);
+        await sendQuickReplyes(sender, 'How many cups of water do you drink a day?', ['1-2 cups', '3-5 cups', '6 and more', 'I don\'t count']);
         continue;
       }
 
