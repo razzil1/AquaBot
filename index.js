@@ -50,10 +50,8 @@ app.post('/webhook/', async function (req, res) {
 
       if (payload === 'Once') {
         addUser(sender, 1);
-        sendImage(sender, config.IMAGE_LOW);
-        setTimeout(function() {
-          sendTextMessage(sender, "I will remind you once a day.");
-        }, 1500);
+        await sendImage(sender, config.IMAGE_LOW);
+        await sendTextMessage(sender, "I will remind you once a day.");
         continue;
       }
 
@@ -146,20 +144,23 @@ function sendImage(sender, url) {
       }
     }
   }
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-  json: {
-      recipient: {id:sender},
-    message: messageData,
-  }
-}, function(error, response, body) {
-  if (error) {
-      console.log('Error sending messages: ', error)
-  } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
+  return new Promise(function(resolve, reject) {
+    request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token:token},
+      method: 'POST',
+    json: {
+        recipient: {id:sender},
+      message: messageData,
     }
+    }, function(error, response, body) {
+    if (error) {
+        reject(error);
+    } else if (response.body.error) {
+        reject(response.body.error);
+      }
+    resolve('It works');
+    })
   })
 }
 
@@ -252,11 +253,6 @@ function sendGenericMessage(sender) {
     }
   })
 }
-
-let sendTwoMessages = async (sender, text1, text2) => {
-  await sendTextMessage(sender, text1);
-  sendTextMessage(sender, text2);
-};
 
 let addUser = async (sender, remind) => {
   let user = await User.findOneAndUpdate({ sender: sender }, { $set: {remind: remind} });
