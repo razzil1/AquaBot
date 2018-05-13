@@ -44,6 +44,11 @@ app.post('/webhook/', function (req, res) {
   for (let i = 0; i < messaging_events.length; i++) {
     let event = req.body.entry[0].messaging[i]
     let sender = event.sender.id
+
+    if(event.message && event.message['quick-reply']) {
+      console.log(event.message['quick-reply']);
+    }
+
     if (event.message && event.message.text) {
       let text = event.message.text
 
@@ -75,17 +80,13 @@ app.post('/webhook/', function (req, res) {
         continue;
       }
 
-      // if (text === 'Three times') {
-      //   addUser(sender, 3);
-      //   sendTextMessage(sender, "I will remind you three times a day");
-      //   continue;
-      // }
+      if (text === 'Three times') {
+        addUser(sender, 3);
+        sendTextMessage(sender, "I will remind you three times a day");
+        continue;
+      }
 
       sendTwoMessages(sender, "Sorry, i didn't understand that.", "If you need help type 'help'");
-    }
-
-    if(event.message && event.message['quick-reply']) {
-      console.log(event.message['quick-reply']);
     }
 
     if (event.postback) {
