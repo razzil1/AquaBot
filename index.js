@@ -37,7 +37,7 @@ app.get('/webhook/', function (req, res) {
 	res.send('Error, wrong token')
 });
 
-app.post('/webhook/', function (req, res) {
+app.post('/webhook/', async function (req, res) {
   let messaging_events = req.body.entry[0].messaging
   // console.log("This is what you get: %j", req.body);
 
@@ -92,7 +92,8 @@ app.post('/webhook/', function (req, res) {
         continue;
       }
 
-      sendTwoMessages(sender, "Sorry, i didn't understand that.", "If you need help type 'help'");
+      await sendTextMessage(sender, "Sorry, i didn't understand that.");
+      await sendTextMessage(sender, "If you need help type 'help'");
     }
 
     if (event.postback) {
