@@ -139,7 +139,7 @@ app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
 });
 
-function sendTextMessage(sender, text) {
+let sendTextMessage = (sender, text) => {
   let messageData = { text:text }
 
   return new Promise(function(resolve, reject) {
@@ -162,7 +162,7 @@ function sendTextMessage(sender, text) {
   })
 }
 
-function sendImage(sender, url) {
+let sendImage = (sender, url) => {
   let messageData = {
     "attachment":{
       "type":"image",
@@ -192,7 +192,7 @@ function sendImage(sender, url) {
   })
 }
 
-function createQucikReply(text) {
+let createQucikReply = (text) => {
   return {
     "content_type":"text",
     "title": text,
@@ -200,7 +200,7 @@ function createQucikReply(text) {
   }
 }
 
-function sendQuickReplyes(sender, title, replies) {
+let sendQuickReplyes = (sender, title, replies) => {
 
   let messageData = {
     "text": title,
@@ -228,7 +228,7 @@ function sendQuickReplyes(sender, title, replies) {
 }
 
 
-function sendGenericMessage(sender) {
+let sendGenericMessage = (sender) => {
   let messageData = {
     "attachment": {
       "type": "template",
