@@ -98,7 +98,7 @@ app.post('/webhook/', async function (req, res) {
         await sendTextMessage(sender, 'Hi there! I will be your personal water trainer :)');
         await sendTextMessage(sender, 'Before we begin...');
         await sendTextMessage(sender, 'Before we begin...');
-        await sendQuickReplyes(sender, 'How many cups of water do you drink a day?', ['1-2 cups', '3-5 cups', '6 and more', 'I don\'t count']);
+        await sendQuickReplyes(sender, 'How many cups of water do you drink a day?', ['1-2 cups', '3-5 cups', '6 and more', 'I dont count']);
         continue;
       }
 
