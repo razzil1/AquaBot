@@ -57,15 +57,15 @@ app.post('/webhook/', async function (req, res) {
 
       if (payload === 'Twice') {
         addUser(sender, 2);
-        sendImage(sender, config.IMAGE_OK);
-        sendTextMessage(sender, "I will remind you twice a day.");
+        await sendImage(sender, config.IMAGE_OK);
+        await sendTextMessage(sender, "I will remind you twice a day.");
         continue;
       }
 
       if (payload === 'Three times') {
         addUser(sender, 3);
-        sendImage(sender, config.IMAGE_HIGH);
-        sendTextMessage(sender, "I will remind you three times a day");
+        await sendImage(sender, config.IMAGE_HIGH);
+        await sendTextMessage(sender, "I will remind you three times a day");
         continue;
       }
 
