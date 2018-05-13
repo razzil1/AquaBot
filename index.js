@@ -317,7 +317,7 @@ let remindUsers = async (reminder) => {
 
   if(users.length) {
     if (reminder === 'morning') {
-      users.map(user => {
+      users.map(async (user) => {
         await sendImage(user.sender, process.env.GIF);
         await sendTextMessage(user.sender, 'Good morning!');
       });
@@ -325,7 +325,7 @@ let remindUsers = async (reminder) => {
       let filterUsers = users.filter(user => user.remind === 2 || user.remind === 3);
 
       if(filterUsers) {
-        filterUsers.map(user => {
+        filterUsers.map(async (user) => {
           await sendImage(user.sender, process.env.GIF);
           await sendTextMessage(user.sender, 'Good afternoon!');
         });
@@ -334,7 +334,7 @@ let remindUsers = async (reminder) => {
     } else if (reminder === 'evening') {
       let filterUsers = user.filter(user => user.remind === 3);
       if(filterUsers) {
-        filterUsers.map(user => {
+        filterUsers.map(async (user) => {
           await sendImage(user.sender, process.env.GIF);
           await sendTextMessage(user.sender, 'Good evening');
         });
