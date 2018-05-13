@@ -50,19 +50,21 @@ app.post('/webhook/', function (req, res) {
 
       if (payload === 'Once') {
         addUser(sender, 1);
-        sendImage(sender, `./public/low.jpg`);
+        sendImage(sender, config.IMAGE_LOW);
         sendTextMessage(sender, "I will remind you once a day.");
         continue;
       }
 
       if (payload === 'Twice') {
         addUser(sender, 2);
+        sendImage(sender, config.IMAGE_OK);
         sendTextMessage(sender, "I will remind you twice a day.");
         continue;
       }
 
       if (payload === 'Three times') {
         addUser(sender, 3);
+        sendImage(sender, config.IMAGE_HIGH);
         sendTextMessage(sender, "I will remind you three times a day");
         continue;
       }

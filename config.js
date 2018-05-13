@@ -4,5 +4,8 @@ module.exports = {
   DATABASE: 'mongodb://razzil1:razzil1@ds119080.mlab.com:19080/aqua-bot',
   MORNING: 8,
   AFTERNOON: 9,
-  EVENING: 21
+  EVENING: 21,
+  IMAGE_LOW: 'https://atzucac.cat/wp-content/uploads/2015/09/insults.jpg',
+  IMAGE_OK: 'http://simhost.org/uploads/posts/2017-01/1484343599_les-grossman-1.jpg',
+  IMAGE_HIGH: 'http://www.andralemarie.com/images/114955/Usain%20Bolt%201.jpg'
 };
