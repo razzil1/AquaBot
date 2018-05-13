@@ -333,3 +333,7 @@ let remindUsers = async (reminder) => {
     console.log('There is no user to remind');
   }
 };
+
+let getUserInfo = () => {
+
+}
