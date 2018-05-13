@@ -224,11 +224,10 @@ let sendTwoMessages = (sender, text1, text2) => {
 };
 
 let addUser = async (sender, remind) => {
-  let user = await User.findOne({ sender: sender });
+  let user = await User.findOneAndUpdate({ sender: sender }, { $set: {remind: remind} });
   if (!user) {
     user = new User({sender: sender, remind: remind });
     await user.save();
-
   }
 
 };
