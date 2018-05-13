@@ -51,42 +51,49 @@ app.post('/webhook/', async function (req, res) {
       if (payload === 'Once') {
         addUser(sender, 1);
         sendTextMessage(sender, "I will remind you once a day.");
+        sendTextMessage(sender, "If you don\'t want to receive a reminder type 'unsubscribe'");
         continue;
       }
 
       if (payload === 'Twice') {
         addUser(sender, 2);
         sendTextMessage(sender, "I will remind you twice a day.");
+        sendTextMessage(sender, "If you don\'t want to receive a reminder type 'unsubscribe'");
         continue;
       }
 
       if (payload === 'Three times') {
         addUser(sender, 3);
         sendTextMessage(sender, "I will remind you three times a day");
+        sendTextMessage(sender, "If you don\'t want to receive a reminder type 'unsubscribe'");
         continue;
       }
 
       if (payload === '1-2 cups') {
         await sendImage(sender, process.env.IMAGE_LOW);
         await sendTextMessage(sender, "Recommended amount of water per day is eight 8-ounce glasses, equals to about 2 liters, or half a gallon.");
+        await sendTextMessage(sender, "If you want me to remind you type 'remind'");
         continue;
       }
 
       if (payload === '3-5 cups') {
         await sendImage(sender, process.env.IMAGE_OK);
         await sendTextMessage(sender, "Recommended amount of water per day is eight 8-ounce glasses, equals to about 2 liters, or half a gallon.");
+        await sendTextMessage(sender, "If you want me to remind you type 'remind'");
         continue;
       }
 
       if (payload === '6 and more') {
         await sendImage(sender, process.env.IMAGE_HIGH);
         await sendTextMessage(sender, "Your'e a real champ! 8 cups is the recommended amount.");
+        await sendTextMessage(sender, "If you want me to remind you type 'remind'");
         continue;
       }
 
       if (payload === 'I don\'t count') {
         await sendImage(sender, process.env.IMAGE_LOW);
         await sendTextMessage(sender, "Recommended amount of water per day is eight 8-ounce glasses, equals to about 2 liters, or half a gallon.");
+        await sendTextMessage(sender, "If you want me to remind you type 'remind'");
         continue;
       }
 
@@ -95,7 +102,7 @@ app.post('/webhook/', async function (req, res) {
     if (event.message && event.message.text) {
       let text = event.message.text
 
-      if (text === 'Unsubscribe') {
+      if (text === 'unsubscribe') {
         removeUser(sender);
         sendTextMessage(sender, "You won't receive reminder any more.");
         continue;
@@ -106,7 +113,7 @@ app.post('/webhook/', async function (req, res) {
         continue;
       }
 
-      if (text === 'Reminder') {
+      if (text === 'remind') {
         sendQuickReplyes(sender, "How many times would you like me to remind you?", ['Once', 'Twice', 'Three times']);
         continue;
       }
@@ -290,7 +297,7 @@ let  removeUser = async (sender) => {
   await User.remove({ sender: sender });
 };
 
-schedule.scheduleJob("*/5 * * * *", function() {
+schedule.scheduleJob("*/1 * * * *", function() {
   let time = new Date();
   let hours = time.getHours() + 2;
   let reminder;
@@ -310,13 +317,17 @@ let remindUsers = async (reminder) => {
 
   if(users.length) {
     if (reminder === 'morning') {
-      users.map(user => { sendTextMessage(user.sender, 'Its morning') });
+      users.map(user => {
+        await sendImage(user.sender, process.env.GIF);
+        await sendTextMessage(user.sender, 'Good morning!');
+      });
     } else if (reminder === 'afternoon') {
       let filterUsers = users.filter(user => user.remind === 2 || user.remind === 3);
 
       if(filterUsers) {
         filterUsers.map(user => {
-          sendTextMessage(user.sender, 'Its afternoon');
+          await sendImage(user.sender, process.env.GIF);
+          await sendTextMessage(user.sender, 'Good afternoon!');
         });
       }
 
@@ -324,7 +335,8 @@ let remindUsers = async (reminder) => {
       let filterUsers = user.filter(user => user.remind === 3);
       if(filterUsers) {
         filterUsers.map(user => {
-          sendTextMessage(user.sender, 'Its evening');
+          await sendImage(user.sender, process.env.GIF);
+          await sendTextMessage(user.sender, 'Good evening');
         });
       }
     }
