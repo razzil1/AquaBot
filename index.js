@@ -50,22 +50,22 @@ app.post('/webhook/', async function (req, res) {
 
       if (payload === 'Once') {
         addUser(sender, 1);
-        sendTextMessage(sender, "I will remind you once a day.");
-        sendTextMessage(sender, "If you don\'t want to receive a reminder type 'unsubscribe'");
+        await sendTextMessage(sender, "I will remind you once a day.");
+        await sendTextMessage(sender, "If you don\'t want to receive a reminder type 'unsubscribe'");
         continue;
       }
 
       if (payload === 'Twice') {
         addUser(sender, 2);
-        sendTextMessage(sender, "I will remind you twice a day.");
-        sendTextMessage(sender, "If you don\'t want to receive a reminder type 'unsubscribe'");
+        await sendTextMessage(sender, "I will remind you twice a day.");
+        await sendTextMessage(sender, "If you don\'t want to receive a reminder type 'unsubscribe'");
         continue;
       }
 
       if (payload === 'Three times') {
         addUser(sender, 3);
-        sendTextMessage(sender, "I will remind you three times a day");
-        sendTextMessage(sender, "If you don\'t want to receive a reminder type 'unsubscribe'");
+        await sendTextMessage(sender, "I will remind you three times a day");
+        await sendTextMessage(sender, "If you don\'t want to receive a reminder type 'unsubscribe'");
         continue;
       }
 
