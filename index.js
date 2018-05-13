@@ -46,7 +46,26 @@ app.post('/webhook/', function (req, res) {
     let sender = event.sender.id
 
     if(event.message && event.message['quick_reply']) {
-      console.log(event.message['quick_reply']);
+      let payload = event.message['quick_reply'].payload;
+
+      if (payload === 'Once') {
+        addUser(sender, 1);
+        sendTextMessage(sender, "I will remind you once a day.");
+        continue;
+      }
+
+      if (payload === 'Twice') {
+        addUser(sender, 2);
+        sendTextMessage(sender, "I will remind you twice a day.");
+        continue;
+      }
+
+      if (payload === 'Three times') {
+        addUser(sender, 3);
+        sendTextMessage(sender, "I will remind you three times a day");
+        continue;
+      }
+
     }
 
     if (event.message && event.message.text) {
@@ -65,24 +84,6 @@ app.post('/webhook/', function (req, res) {
 
       if (text === 'Reminder') {
         sendQuickReply(sender);
-        continue;
-      }
-
-      if (text === 'Once') {
-        addUser(sender, 1);
-        sendTextMessage(sender, "I will remind you once a day.");
-        continue;
-      }
-
-      if (text === 'Twice') {
-        addUser(sender, 2);
-        sendTextMessage(sender, "I will remind you twice a day.");
-        continue;
-      }
-
-      if (text === 'Three times') {
-        addUser(sender, 3);
-        sendTextMessage(sender, "I will remind you three times a day");
         continue;
       }
 
