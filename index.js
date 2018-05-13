@@ -75,11 +75,11 @@ app.post('/webhook/', function (req, res) {
         continue;
       }
 
-      if (text === 'Three times') {
-        addUser(sender, 3);
-        sendTextMessage(sender, "I will remind you three times a day");
-        continue;
-      }
+      // if (text === 'Three times') {
+      //   addUser(sender, 3);
+      //   sendTextMessage(sender, "I will remind you three times a day");
+      //   continue;
+      // }
 
       sendTwoMessages(sender, "Sorry, i didn't understand that.", "If you need help type 'help'");
     }
