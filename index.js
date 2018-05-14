@@ -307,7 +307,7 @@ schedule.scheduleJob("*/1 * * * *", function() {
   let time = new Date();
   let hours = time.getHours() + 2;
 
-  if (hours === process.env.MORNING) {
+  if (hours === 8) {
     remindUsers('morning');
   } else if (hours === process.env.AFTERNOON) {
     remindUsers('afternoon');
