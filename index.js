@@ -130,7 +130,7 @@ app.post('/webhook/', async function (req, res) {
 
       var appApiAi = apiai(process.env.API_TOKEN);
 
-      var request = app.textRequest(text, {
+      var request = appApiAi.textRequest(text, {
           sessionId: sender
       });
 
