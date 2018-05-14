@@ -135,7 +135,8 @@ app.post('/webhook/', async function (req, res) {
       });
 
       request.on('response', function(response) {
-          console.log(response);
+          let messages = response.fulfillment.messages;
+          messages.map(message => sendTextMessage(sender, message));
       });
 
       request.on('error', function(error) {
