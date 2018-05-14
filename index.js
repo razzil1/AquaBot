@@ -322,7 +322,7 @@ let  removeUser = async (sender) => {
   await User.remove({ sender: sender });
 };
 
-schedule.scheduleJob("*/1 * * * *", function() {
+schedule.scheduleJob("5 * * * *", function() {
   let time = new Date();
   let hours = time.getHours() + 2;
 
