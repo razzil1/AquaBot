@@ -303,7 +303,7 @@ let  removeUser = async (sender) => {
   await User.remove({ sender: sender });
 };
 
-schedule.scheduleJob("*/5 * * * *", function() {
+schedule.scheduleJob("*/30 * * * *", function() {
   let time = new Date();
   let hours = time.getHours() + 2;
   let reminder;
