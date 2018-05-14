@@ -322,9 +322,9 @@ let remindUsers = async (reminder) => {
 
   if(users.length) {
     if (reminder === 'morning') {
-      users.map((user) => {
-        // await sendImage(user.sender, process.env.GIF);
-        sendTextMessage(user.sender, 'Good morning!');
+      users.map(async (user) => {
+        await sendImage(user.sender, process.env.GIF);
+        await sendTextMessage(user.sender, 'Good morning!');
       });
     } else if (reminder === 'afternoon') {
       let filterUsers = users.filter(user => user.remind === 2 || user.remind === 3);
