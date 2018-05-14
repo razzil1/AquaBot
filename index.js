@@ -307,11 +307,11 @@ schedule.scheduleJob("*/1 * * * *", function() {
   let time = new Date();
   let hours = time.getHours() + 2;
 
-  if (hours === 8) {
+  if (hours == process.env.MORNING) {
     remindUsers('morning');
-  } else if (hours === process.env.AFTERNOON) {
+  } else if (hours == process.env.AFTERNOON) {
     remindUsers('afternoon');
-  } else if (hours === process.env.EVENING) {
+  } else if (hours == process.env.EVENING) {
     remindUsers('evening');
   }
 });
@@ -350,7 +350,3 @@ let remindUsers = async (reminder) => {
     console.log('There is no user to remind');
   }
 };
-
-let getUserInfo = () => {
-
-}
