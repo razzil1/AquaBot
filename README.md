@@ -8,6 +8,7 @@ Facebook Messenger bot. Depending on your preferences, AqvaBot will ask you to d
 * Node.js with Express.js
 * MongoDB
 * Heroku
+* API.ai
 
 ### Set Reminder
 
