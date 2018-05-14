@@ -303,10 +303,9 @@ let  removeUser = async (sender) => {
   await User.remove({ sender: sender });
 };
 
-schedule.scheduleJob("*/5 * * * *", function() {
+schedule.scheduleJob("*/1 * * * *", function() {
   let time = new Date();
   let hours = time.getHours() + 2;
-  let reminder;
 
   if (hours === process.env.MORNING) {
     remindUsers('morning');
@@ -323,9 +322,9 @@ let remindUsers = async (reminder) => {
 
   if(users.length) {
     if (reminder === 'morning') {
-      users.map(async (user) => {
-        await sendImage(user.sender, process.env.GIF);
-        await sendTextMessage(user.sender, 'Good morning!');
+      users.map((user) => {
+        // await sendImage(user.sender, process.env.GIF);
+        sendTextMessage(user.sender, 'Good morning!');
       });
     } else if (reminder === 'afternoon') {
       let filterUsers = users.filter(user => user.remind === 2 || user.remind === 3);
