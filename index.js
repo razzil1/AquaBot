@@ -8,6 +8,7 @@ const schedule = require('node-schedule');
 const mongoose = require('mongoose');
 const UserSchema = require('./User');
 const User = mongoose.model('UserSchema');
+var apiai = require('apiai');
 require('dotenv').config({ path: 'variables.env' });
 
 mongoose.connect(process.env.DATABASE);
@@ -124,8 +125,25 @@ app.post('/webhook/', async function (req, res) {
         continue;
       }
 
-      await sendTextMessage(sender, "Sorry, i didn't understand that.");
-      await sendTextMessage(sender, "If you need help type 'help'");
+      // await sendTextMessage(sender, "Sorry, i didn't understand that.");
+      // await sendTextMessage(sender, "If you need help type 'help'");
+
+      var appApiAi = apiai(process.env.API_TOKEN);
+
+      var request = app.textRequest(text,0 {
+          sessionId: sender
+      });
+
+      request.on('response', function(response) {
+          console.log(response);
+      });
+
+      request.on('error', function(error) {
+          console.log(error);
+      });
+
+      request.end();
+
     }
 
     if (event.postback) {
