@@ -136,7 +136,7 @@ app.post('/webhook/', async function (req, res) {
 
       request.on('response', function(response) {
           let messages = response.result.fulfillment.messages;
-          messages.map(message => sendTextMessage(sender, message.speech) );
+          messages.map(async (message) => await sendTextMessage(sender, message.speech) );
       });
 
       request.on('error', function(error) {
