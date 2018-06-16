@@ -1,6 +1,6 @@
-# AqvaBot
+# AquaBot
 
-Facebook Messenger bot. Depending on your preferences, AqvaBot will ask you to drink a glass of water during the day.
+Facebook Messenger bot. Depending on your preferences, AquaBot will ask you to drink a glass of water during the day.
 
 ## Technologies and Development
 
